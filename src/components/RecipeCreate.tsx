@@ -2,8 +2,9 @@ import React, { useState } from "react"
 import { IRecipe } from "../models/IRecipe"
 import { useHistory } from "react-router-dom";
 import { IIngredient } from "../models/IIngredient";
-import { ErrorContainer, Form, FormContainer, FormGroup, Input, Label, SubmitButton, TextArea } from "./CommonStyles";
+import { NeutralButton, ErrorContainer, Form, FormContainer, FormGroup, Input, Label, PositiveButton, TextArea } from "./CommonStyles";
 import axios from "axios";
+import RecipeForm from "./RecipeForm";
 
 const RecipeCreate: React.FC = () => {
   const [recipe, setRecipe] = useState<IRecipe>({
@@ -33,6 +34,10 @@ const RecipeCreate: React.FC = () => {
       ...prevRecipe,
       ingredients
     }))
+  }
+
+  const onCancel = () => {
+    history.push('/recipes')
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,35 +76,17 @@ const RecipeCreate: React.FC = () => {
   }
 
   return (
-    <FormContainer>
-      {formErrors.length > 0 && (
-        <ErrorContainer>
-          <ul>
-            {formErrors.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
-          </ul>
-        </ErrorContainer>
-      )}
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label htmlFor="name">Name:</Label>
-          <Input type="text" id="name" name="name" value={recipe.name} onChange={handleInputChange}/>
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="description">Description:</Label>
-          <TextArea id="description" name="description" value={recipe.description} onChange={handleInputChange}/>
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="ingredients">Ingredients:</Label>
-          <Input type="text" placeholder="ingredients,in,comma,separated,list,like,this,cheese" id="ingredients" name="ingredients" value={recipe.ingredients.map((ingredient) => ingredient.name).join(',')} onChange={handleIngredientChange}
-          />
-        </FormGroup>
-
-        <SubmitButton type='submit'>Create Recipe</SubmitButton>
-      </Form>
-    </FormContainer>
+    <RecipeForm 
+      handleSubmit={handleSubmit}
+      handleInputChange={handleInputChange}
+      handleIngredientChange={handleIngredientChange}
+      formErrors={formErrors}
+      submitButtonText="Create Recipe"
+      cancelButtonText="Cancel"
+      onCancel={onCancel}
+      recipe={recipe}
+    />
   )
 }
 
-export default RecipeCreate
+export default RecipeCreate;

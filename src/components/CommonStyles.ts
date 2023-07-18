@@ -95,19 +95,19 @@ export const Button = styled.button`
   font-size: 14px;
 `;
 
-export const SubmitButton = styled(Button)`
+export const PositiveButton = styled(Button)`
   background-color: lightgreen;
   &:hover {
     background-color: green;
   }
 `;
 
-export const EditButton = styled(Button)`
+export const NeutralButton = styled(Button)`
   background-color: blue;
   margin-right: 8px;
 `;
 
-export const DeleteButton = styled(Button)`
+export const NegativeButton = styled(Button)`
   background-color: red;
 `
 
