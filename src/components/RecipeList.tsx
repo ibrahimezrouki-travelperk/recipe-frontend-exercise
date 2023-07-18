@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import { IRecipe } from "../models/IRecipe";
-import { RecipeContainer, RecipeCard, RecipeName } from "./CommonStyles";
-import Recipe from "./RecipeEdit";
-import RecipeDetail from "./RecipeDetail";
+import { RecipeContainer, RecipeCard } from "./CommonStyles";
+import Recipe from "./RecipeDetail";
+import RecipeView from "../views/RecipeView";
 import axios from "axios";
 
 const RecipeList: React.FC = () => {
@@ -19,16 +19,17 @@ const RecipeList: React.FC = () => {
       })
   }, [])
 
+  console.log(recipes)
   return (
     <div>
       <RecipeContainer>
         {recipes.map((recipe) => (
           <RecipeCard key={recipe.id}>
-            <RecipeDetail recipe={recipe}/>
+            <RecipeView recipe={recipe}/>
           </RecipeCard>
         ))}
       </RecipeContainer>
-      <Link to="/create">Create Recipe</Link>
+      <Link to="/recipes/create">Create Recipe</Link>
     </div>
   )
 };

@@ -92,7 +92,7 @@ const RecipeCreate: React.FC = () => {
         </FormGroup>
         <FormGroup>
           <Label htmlFor="ingredients">Ingredients:</Label>
-          <Input type="text" id="ingredients" name="ingredients" value={recipe.ingredients.map((ingredient) => ingredient.name).join(',')} onChange={handleIngredientChange}
+          <Input type="text" placeholder="ingredients,in,comma,separated,list,like,this,cheese" id="ingredients" name="ingredients" value={recipe.ingredients.map((ingredient) => ingredient.name).join(',')} onChange={handleIngredientChange}
           />
         </FormGroup>
 
