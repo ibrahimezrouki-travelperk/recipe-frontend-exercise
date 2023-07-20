@@ -1,8 +1,6 @@
 import React, { useState } from "react"
 import { IRecipe } from "../models/IRecipe"
 import { useHistory } from "react-router-dom";
-import { IIngredient } from "../models/IIngredient";
-import { NeutralButton, ErrorContainer, Form, FormContainer, FormGroup, Input, Label, PositiveButton, TextArea } from "./CommonStyles";
 import axios from "axios";
 import RecipeForm from "./RecipeForm";
 
@@ -72,6 +70,7 @@ const RecipeCreate: React.FC = () => {
       })
       .catch(error => {
         console.log('Error posting to endpoing: ', error)
+        history.push('/disaster')
       })
   }
 

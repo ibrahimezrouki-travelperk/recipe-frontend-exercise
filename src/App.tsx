@@ -7,6 +7,7 @@ import RecipeView from './views/RecipeView';
 import RecipeCreate from './components/RecipeCreate';
 import NotFoundView from './views/NotFoundView';
 import RecipeDetail from './components/RecipeDetail';
+import SomethingWentWrongView from './views/SomethingWentWrongView';
 
 const App : React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App : React.FC = () => {
         <Route path='/recipes/create' component={RecipeCreate}/>
         <Route path='/recipes/:id' component={RecipeDetail} />
         <Route path='/notfound' component={NotFoundView} />
+        <Route path='/disaster' component={SomethingWentWrongView} />
         <Route component={NotFoundView} />
       </Switch>
   )

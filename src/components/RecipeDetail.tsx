@@ -23,7 +23,7 @@ const RecipeDetail: React.FC = () => {
         setRecipe(response.data);
       })
       .catch(error => {
-        console.error('Error getting all recipes: ', error);
+        console.log(`Error getting recipe with id ${id}: `);
         history.push('/notfound');
       })
   }, [])
@@ -59,9 +59,8 @@ const RecipeDetail: React.FC = () => {
         history.push('/recipes');
       })
       .catch(error => {
-        console.log('Error updating recipe: ', error)
-        console.log(error.message)
-        history.push('/notfound')
+        console.log('Error updating recipe')
+        history.push('/disaster')
       })
   }
 
@@ -88,12 +87,11 @@ const RecipeDetail: React.FC = () => {
   const handleOnDelete = () => {
     axios.delete(`http://localhost:8000/recipe/recipe/${id}`)
     .then(response => {
-      console.log('recipe successfully deleted');
       history.push('/recipes');
     })
     .catch(error => {
       console.error('Error deleting recipe: ', error);
-      history.push('/notfound');
+      history.push('/disaster');
     })
   }
 
