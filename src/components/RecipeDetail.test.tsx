@@ -29,7 +29,6 @@ describe('RecipeDetail', () => {
         <RecipeDetail />
       </MemoryRouter>
     );
-    // TODO: check for all the elements in the form not just the buttons
     const createButton = screen.getByRole('button', { name: 'Edit' });
     expect(createButton).toBeInTheDocument();
 
@@ -41,7 +40,6 @@ describe('RecipeDetail', () => {
     const history = createBrowserHistory()
     const route = `/recipes/${mockRecipe.id}`;
     history.push(route);
-    // const pushSpy = jest.spyOn(history, 'push');
     mockAxios.onGet(`http://localhost:8000/recipe/recipe/${mockRecipe.id}`).reply(200, mockRecipe);
     render(
       <Router history={history}>

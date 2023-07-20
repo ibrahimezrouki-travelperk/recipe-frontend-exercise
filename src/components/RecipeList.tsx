@@ -14,7 +14,6 @@ const RecipeList: React.FC = () => {
         setRecipes(response.data);
       })
       .catch(error => {
-        // console.log('Error getting all recipes: ', error);
         history.push('/disaster');
       })
   }, [])

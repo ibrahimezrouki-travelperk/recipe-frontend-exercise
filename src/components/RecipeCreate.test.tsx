@@ -28,7 +28,7 @@ describe('RecipeCreate', () => {
         <RecipeCreate />
       </MemoryRouter>
     );
-    // TODO: check for all the elements in the form not just the buttons
+
     const createButton = screen.getByRole('button', { name: 'Create Recipe' });
     expect(createButton).toBeInTheDocument();
 
@@ -58,7 +58,6 @@ describe('RecipeCreate', () => {
     const createButton = screen.getByRole('button', { name: 'Create Recipe' });
     fireEvent.click(createButton);
 
-    // Wait for the form submission to complete
     await waitFor(() => expect(pushSpy).toHaveBeenCalledWith('/recipes'));
   })
 
@@ -84,7 +83,6 @@ describe('RecipeCreate', () => {
     const createButton = screen.getByRole('button', { name: 'Create Recipe' });
     fireEvent.click(createButton);
 
-    // Wait for the form submission to complete
     await waitFor(() => expect(pushSpy).toHaveBeenCalledWith('/disaster'));
   })
 
@@ -112,7 +110,6 @@ describe('RecipeCreate', () => {
 
     const errorMessage = screen.getByText('Recipe has to have at least one ingredient');
 
-    // Wait for the form submission to complete
     await waitFor(() => expect(pushSpy).toHaveBeenCalledTimes(0));
     expect(errorMessage).toBeInTheDocument();
   })
