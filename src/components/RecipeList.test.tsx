@@ -1,11 +1,11 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { IRecipe } from "../models/IRecipe";
 import { IIngredient } from "../models/IIngredient";
 import axios from "axios";
 import MockAdapter from 'axios-mock-adapter';
 import RecipeList from "./RecipeList";
-import { BrowserRouter, MemoryRouter, Route, Router } from "react-router-dom";
-import {createBrowserHistory, createMemoryHistory} from 'history'
+import {MemoryRouter, Router } from "react-router-dom";
+import {createBrowserHistory} from 'history'
 
 describe('RecipeList', () => {
 
@@ -58,5 +58,21 @@ describe('RecipeList', () => {
       </Router>
     ); 
     await waitFor(() => expect(pushSpy).toHaveBeenCalledWith('/disaster'));
+  })
+
+  it('redirects to RecipeCreate when link is clicked', async () => {
+    const history = createBrowserHistory();
+    const pushSpy = jest.spyOn(history, 'push');
+    mockAxios.onGet('http://localhost:8000/recipe/recipe/').reply(200, mockRecipes);
+    render(
+      <Router history={history}>
+        <RecipeList />
+      </Router>
+    );
+    
+    expect(screen.getByRole('link', {name: 'Create a recipe'})).toHaveAttribute('href', '/recipes/create');
+    const createRecipeLink = screen.getByRole('link', {name: 'Create a recipe'});
+    fireEvent.click(createRecipeLink, {button: 0});
+    expect(pushSpy).toHaveBeenCalledWith('/recipes/create');
   })
 })

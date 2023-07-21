@@ -69,7 +69,7 @@ const RecipeCreate: React.FC = () => {
         history.push('/recipes');
       })
       .catch(error => {
-        console.log('Error posting to endpoing: ', error)
+        console.error('Error posting to endpoint: ', error)
         history.push('/disaster')
       })
   }

@@ -27,7 +27,7 @@ const RecipeList: React.FC = () => {
           </RecipeCard>
         ))}
       </RecipeContainer>
-      <Link to="/recipes/create">Create Recipe</Link>
+      <Link to="/recipes/create">Create a recipe</Link>
     </div>
   )
 };
