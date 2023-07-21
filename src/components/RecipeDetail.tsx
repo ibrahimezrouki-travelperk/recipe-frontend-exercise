@@ -5,17 +5,18 @@ import axios from "axios";
 import { NegativeButton, NeutralButton, ErrorContainer, Form, FormContainer, FormGroup, Input, Label, RecipeCard, PositiveButton, TextArea } from "./CommonStyles";
 import RecipeView from "../views/RecipeView";
 import RecipeForm from "./RecipeForm";
+import useRecipeForm from "../customHooks/useRecipeForm";
 
 const RecipeDetail: React.FC = () => {
   const { id } = useParams<{id: string}>();
-  const [recipe, setRecipe] = useState<IRecipe>({
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const history = useHistory();
+
+  const {recipe, formErrors, setFormErrors, handleInputChange, handleIngredientChange, resetForm, setRecipe } = useRecipeForm({
     name: '',
     description: '',
     ingredients: []
-  });
-  const [formErrors, setFormErrors] = useState<string[]>([]);
-  const [editMode, setEditMode] = useState<boolean>(false);
-  const history = useHistory();
+  })
 
   useEffect(() => {
     axios.get(`http://localhost:8000/recipe/recipe/${id}`)
@@ -62,26 +63,6 @@ const RecipeDetail: React.FC = () => {
         console.log('Error updating recipe')
         history.push('/disaster')
       })
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const {name, value} = e.target;
-    setRecipe((previousRecipeValues) => ({
-      ...previousRecipeValues,
-      [name]: value
-    }));
-  }
-
-  const handleIngredientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const ingredientNames = e.target.value.split(',');
-    const ingredients = ingredientNames.map((name) => ({
-      name: name.trim()
-    }))
-
-    setRecipe((prevRecipe) => ({
-      ...prevRecipe,
-      ingredients
-    }))
   }
 
   const handleOnDelete = () => {

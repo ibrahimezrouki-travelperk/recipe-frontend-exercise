@@ -28,6 +28,13 @@ describe('RecipeCreate', () => {
         <RecipeCreate />
       </MemoryRouter>
     );
+    
+    const nameInput = screen.getByLabelText('Name:');
+    const descriptionInput = screen.getByLabelText('Description:');
+    const ingredientInput = screen.getByLabelText('Ingredients - comma separated list:');
+    expect(nameInput).toBeInTheDocument();
+    expect(descriptionInput).toBeInTheDocument();
+    expect(ingredientInput).toBeInTheDocument();
 
     const createButton = screen.getByRole('button', { name: 'Create Recipe' });
     expect(createButton).toBeInTheDocument();

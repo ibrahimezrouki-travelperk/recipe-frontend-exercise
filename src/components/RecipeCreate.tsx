@@ -3,36 +3,15 @@ import { IRecipe } from "../models/IRecipe"
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import RecipeForm from "./RecipeForm";
+import useRecipeForm from "../customHooks/useRecipeForm";
 
 const RecipeCreate: React.FC = () => {
-  const [recipe, setRecipe] = useState<IRecipe>({
+  const history = useHistory();
+  const {recipe, formErrors, setFormErrors, handleInputChange, handleIngredientChange, resetForm } = useRecipeForm({
     name: '',
     description: '',
     ingredients: []
   })
-  const [formErrors, setFormErrors] = useState<string[]>([]);
-  const history = useHistory();
-
-  // name and description follow same approach
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const {name, value} = e.target;
-    setRecipe((previousRecipeValues) => ({
-      ...previousRecipeValues,
-      [name]: value
-    }));
-  }
-
-  const handleIngredientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const ingredientNames = e.target.value.split(',');
-    const ingredients = ingredientNames.map((name) => ({
-      name: name.trim()
-    }))
-
-    setRecipe((prevRecipe) => ({
-      ...prevRecipe,
-      ingredients
-    }))
-  }
 
   const onCancel = () => {
     history.push('/recipes')
@@ -60,12 +39,7 @@ const RecipeCreate: React.FC = () => {
     axios.post('http://localhost:8000/recipe/recipe/', recipe)
       .then(response => {
         // if successful, set form back to empty state and go back to recipe list
-        setRecipe({
-          name: '',
-          description: '',
-          ingredients: []
-        })
-        setFormErrors([]);
+        resetForm()
         history.push('/recipes');
       })
       .catch(error => {
